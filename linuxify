@@ -95,6 +95,7 @@ linuxify_formulas=(
     "tfenv"
     "iterm2"
     "jq"
+    "ag"
 
 )
 
