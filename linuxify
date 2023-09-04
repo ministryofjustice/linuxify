@@ -89,12 +89,13 @@ linuxify_formulas=(
     "tig"
     "zsh"
     "gpg"
-    "docker"
+    "docker --cask"
     "awscli"
     "aws-vault"
     "tfenv"
     "iterm2"
     "jq"
+    "ag"
 
 )
 

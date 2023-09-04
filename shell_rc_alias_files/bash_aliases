@@ -1,5 +1,10 @@
 echo 'LOADED .bash_aliases'
 
+## Ignore if already exists
+if [ -f ~/.bash_tokens ]; then
+. ~/.bash_tokens
+fi
+
 BREW_BIN="/usr/local/bin/brew"
 if [ -f "/opt/homebrew/bin/brew" ]; then
     BREW_BIN="/opt/homebrew/bin/brew"

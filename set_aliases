@@ -1,23 +1,25 @@
 #!/bin/bash
 set -euo pipefail
 
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
 ## Update shell config files
 if [ -f ~/.bash_profile ]; then
-    cp ~/.bash_profile ~/.bash_profile.bak
+    cp ~/.bash_profile ~/.bash_profile.bak.${TIMESTAMP}
 fi
 cat ./shell_rc_alias_files/bash_profile > ~/.bash_profile
 
 if [ -f ~/.bashrc ]; then
-    cp ~/.bashrc ~/.bashrc.bak
+    cp ~/.bashrc ~/.bashrc.bak.${TIMESTAMP}
 fi
 cat ./shell_rc_alias_files/bashrc > ~/.bashrc
 
 if [ -f ~/.bash_aliases ]; then
-    cp ~/.bash_aliases ~/.bash_aliases.bak
+    cp ~/.bash_aliases ~/.bash_aliases.bak.${TIMESTAMP}
 fi
 cat ./shell_rc_alias_files/bash_aliases > ~/.bash_aliases
 
 if [ -f ~/.zshrc ]; then
-    cp ~/.zshrc ~/.zshrc.bak
+    cp ~/.zshrc ~/.zshrc.bak.${TIMESTAMP}
 fi
 cat ./shell_rc_alias_files/zshrc >> ~/.zshrc
