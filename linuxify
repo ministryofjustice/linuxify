@@ -91,6 +91,7 @@ linuxify_formulas=(
     "gpg"
     "docker --cask"
     "awscli"
+    "session-manager-plugin --cask"
     "aws-vault"
     "tfenv"
     "iterm2"
