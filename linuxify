@@ -81,6 +81,7 @@ linuxify_formulas=(
     "unzip"
     "vim"
     "gnutls"
+    "dateutils"
 
 
     # Other commands (non-GNU)
@@ -97,6 +98,8 @@ linuxify_formulas=(
     "iterm2"
     "jq"
     "ag"
+    "ossp-uuid"
+    "jo"
 
 )
 
