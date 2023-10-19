@@ -204,6 +204,21 @@ linuxify_info() {
     done
 }
 
+linuxify_intellij() {
+    linuxify_check_os;
+    linuxify_check_brew;
+
+    idea_path_location=/usr/local/bin/idea
+    cat > $idea_path_location <<-EOF
+#!/bin/sh
+
+open -na "IntelliJ IDEA.app" --args "\$@"
+EOF
+
+    chmod 755 $idea_path_location
+    echo "Added Idea to path"
+}
+
 linuxify_help() {
   echo "usage: linuxify [-h] [command]";
   echo ""
@@ -211,6 +226,7 @@ linuxify_help() {
   echo "  install    install GNU/Linux utilities"
   echo "  uninstall  uninstall GNU/Linux utilities"
   echo "  info       show info on GNU/Linux utilities"
+  echo "  intellij   setup mac for Intellij"
   echo ""
   echo "optional arguments:"
   echo "  -h, --help  show this help message and exit"
@@ -221,6 +237,7 @@ linuxify_main() {
         case $1 in
             "install") linuxify_install ;;
             "uninstall") linuxify_uninstall ;;
+            "intellij") linuxify_intellij ;;
             "info") linuxify_info ;;
             "-h") linuxify_help ;;
             "--help") linuxify_help ;;
