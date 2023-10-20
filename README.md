@@ -27,7 +27,7 @@ brew install git
 ## Install
 
 ```bash
-git clone https://github.com/smjmoj/linuxify.git
+git clone https://github.com/ministryofjustice/linuxify
 cd linuxify/
 ./linuxify install
 ```
@@ -51,7 +51,3 @@ After run this to link the `.bash_aliases` again after Oh-My-Zsh install
 ```bash
 ./set_aliases
 ```
-
-
-
-
