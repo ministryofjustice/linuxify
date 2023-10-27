@@ -1,0 +1,60 @@
+[profile default]
+region = eu-west-2
+output = json
+
+[sso-session moj-nvvs]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_registration_scopes = sso:account:access
+
+[profile mojo-shared-services]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 683290208331
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile mojo-development]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 068084030754
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile mojo-pre-production]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 473630360727
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile mojo-production]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 037161842252
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile mojo-shared-services-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec mojo-shared-services --json
+
+[profile mojo-development-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec mojo-development --json
+
+[profile mojo-pre-production-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec mojo-pre-production --json
+
+[profile mojo-production-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec mojo-production --json

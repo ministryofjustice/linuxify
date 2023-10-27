@@ -152,6 +152,20 @@ linuxify_install() {
         echo "Skipping DevOps Repos"
     fi
 
+    ## Install AWS Config
+    read -p "Configure AWS Profile (Y/N)? " -n 1 -r
+    if [[ $REPLY =~ [Yy]$ ]]; then
+      CONFIG=~/.aws/config
+      PROFILES_TO_ADD=resources/aws-cli-config
+      # Check if file exists
+      if [ -f $CONFIG ]; then
+        cp $CONFIG ~/.aws/config.backup.$RANDOM
+      fi
+      cat "$PROFILES_TO_ADD" > "$CONFIG"
+    else
+        echo "Skipping Config Setup"
+    fi
+
     # Make changes to PATH/MANPATH/INFOPATH/LDFLAGS/CPPFLAGS
     cp .linuxify ~/.linuxify
     echo "Add '. ~/.linuxify' to your ~/.bashrc, ~/.zshrc or your shell's equivalent config file"
