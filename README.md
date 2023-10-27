@@ -51,3 +51,14 @@ After run this to link the `.bash_aliases` again after Oh-My-Zsh install
 ```bash
 ./set_aliases
 ```
+
+## Chrome bookmarks
+
+1. Open Chrome
+2. Go to [chrome://bookmarks/](chrome://bookmarks/)
+3. Click ... (Top right)
+4. Add new folder named 'Team bookmarks'
+5. Open that folder 
+6. Click ... (Top right)
+7. Import bookmarks
+8. [/github_bookmarks2.html](/github_bookmarks2.html)
