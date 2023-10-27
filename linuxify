@@ -144,6 +144,14 @@ linuxify_install() {
         echo "OK, leaving your shell as $SHELL"
     fi
 
+    ## Install Git Repos
+    read -p "Do you want to install DevOps Repos (Y/N)? " -n 1 -r
+    if [[ $REPLY =~ [Yy]$ ]]; then
+      scripts/getrepos.sh
+    else
+        echo "Skipping DevOps Repos"
+    fi
+
     # Make changes to PATH/MANPATH/INFOPATH/LDFLAGS/CPPFLAGS
     cp .linuxify ~/.linuxify
     echo "Add '. ~/.linuxify' to your ~/.bashrc, ~/.zshrc or your shell's equivalent config file"
