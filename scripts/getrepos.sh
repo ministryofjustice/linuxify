@@ -47,6 +47,7 @@ repositories=(
   "terraform-panorama-config git@github.com:ministryofjustice/terraform-panorama-config"
   "transit-gateways git@github.com:ministryofjustice/transit-gateways"
   "nvvs-containers git@github.com:ministryofjustice/nvvs-containers"
+  "juniper-mist-integration git@github.com:ministryofjustice/juniper-mist-integration"
 )
 
 clone_repo() {
