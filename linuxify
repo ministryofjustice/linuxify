@@ -202,7 +202,7 @@ linuxify_uninstall() {
     # Uninstall all formulas in reverse order
     for (( i=${#linuxify_formulas[@]}-1; i>=0; i-- )); do
         if [[ ${linuxify_formulas[i]} != bash ]]; then
-            brew uninstall -f $(echo "${linuxify_formulas[i]}" | cut -d ' ' -f1)
+            brew uninstall -f "$(echo "${linuxify_formulas[i]}" | cut -d ' ' -f1)"
         fi
     done
 
@@ -221,7 +221,7 @@ linuxify_info() {
     linuxify_check_brew;
 
     for (( i=0; i<${#linuxify_formulas[@]}; i++ )); do
-        brew info $(echo "${linuxify_formulas[i]}" | cut -d ' ' -f1)
+        brew info "$(echo "${linuxify_formulas[i]}" | cut -d ' ' -f1)"
         printf "\n\n===============================================================================================================================\n\n"
     done
 }
