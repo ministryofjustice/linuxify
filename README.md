@@ -46,10 +46,10 @@ See https://github.com/ohmyzsh/ohmyzsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-After run this to link the `.bash_aliases` again after Oh-My-Zsh install
+After run this from the root of the project to link the `.bash_aliases` again after Oh-My-Zsh install
 
 ```bash
-./set_aliases
+./scripts/set_aliases
 ```
 
 ## Chrome bookmarks
