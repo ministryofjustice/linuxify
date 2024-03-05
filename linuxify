@@ -88,9 +88,8 @@ linuxify_formulas=(
     "tree"
     "gh"
     "tig"
-    "zsh"
+#    "zsh"
     "gpg"
-    "docker --cask"
     "awscli"
     "session-manager-plugin --cask"
     "aws-vault"
@@ -100,6 +99,12 @@ linuxify_formulas=(
     "ag"
     "ossp-uuid"
     "jo"
+    
+    # Software casks
+    "firefox --cask"
+    "intellij-idea --cask"
+    "visual-studio-code --cask"
+    "docker --cask"
 
 )
 
@@ -125,50 +130,33 @@ linuxify_install() {
         if brew ls --versions ${linuxify_formulas[i]}; then
             echo "Found Existing ${linuxify_formulas[i]}"
         else
-            echo "Installing ${linuxify_formulas[i]}"
-            brew install ${linuxify_formulas[i]}
+        	read -p "Installing ${linuxify_formulas[i]} (Y/N)? " -n 1 -r
+    		if [[ $REPLY =~ [Yy]$ ]]; then
+            	echo "Installing ${linuxify_formulas[i]}"
+            	brew install ${linuxify_formulas[i]}
+            else
+            	echo "OK, moving on...."
+    		fi
         fi
     done
 
-    if [[ $CPU_BRAND_STRING != 'Apple' ]]; then
-        linuxify_install_gdb
-    fi
+    # if [[ $CPU_BRAND_STRING != 'Apple' ]]; then
+#         linuxify_install_gdb
+#     fi
 
-    ## Offer to change shell to newly installed bash
-    read -p "Do you want to change your shell to the latest bash (Y/N)? " -n 1 -r
-    if [[ $REPLY =~ [Yy]$ ]]; then
-        grep -qF "${BREW_PREFIX}/bin/bash" /etc/shells || echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells > /dev/null
-        echo # Blank line so the password entry isn't bunched-up
-        chsh -s ${BREW_PREFIX}/bin/bash
-    else
-        echo "OK, leaving your shell as $SHELL"
-    fi
-
-    ## Install Git Repos
-    read -p "Do you want to install DevOps Repos (Y/N)? " -n 1 -r
-    if [[ $REPLY =~ [Yy]$ ]]; then
-      scripts/getrepos.sh
-    else
-        echo "Skipping DevOps Repos"
-    fi
-
-    ## Install AWS Config
-    read -p "Configure AWS Profile (Y/N)? " -n 1 -r
-    if [[ $REPLY =~ [Yy]$ ]]; then
-      CONFIG=~/.aws/config
-      PROFILES_TO_ADD=resources/aws-cli-config
-      # Check if file exists
-      if [ -f $CONFIG ]; then
-        cp $CONFIG ~/.aws/config.backup.$RANDOM
-      fi
-      cat "$PROFILES_TO_ADD" > "$CONFIG"
-    else
-        echo "Skipping Config Setup"
-    fi
+#     ## Offer to change shell to newly installed bash
+#     read -p "Do you want to change your shell to the latest bash (Y/N)? " -n 1 -r
+#     if [[ $REPLY =~ [Yy]$ ]]; then
+#         grep -qF "${BREW_PREFIX}/bin/bash" /etc/shells || echo "${BREW_PREFIX}/bin/bash" | sudo tee -a /etc/shells > /dev/null
+#         echo # Blank line so the password entry isn't bunched-up
+#         chsh -s ${BREW_PREFIX}/bin/bash
+#     else
+#         echo "OK, leaving your shell as $SHELL"
+#     fi
 
     # Make changes to PATH/MANPATH/INFOPATH/LDFLAGS/CPPFLAGS
-    cp .linuxify ~/.linuxify
-    echo "Add '. ~/.linuxify' to your ~/.bashrc, ~/.zshrc or your shell's equivalent config file"
+  #   cp .linuxify ~/.linuxify
+#     echo "Add '. ~/.linuxify' to your ~/.bashrc, ~/.zshrc or your shell's equivalent config file"
 }
 
 linuxify_uninstall() {
@@ -229,8 +217,10 @@ linuxify_info() {
 linuxify_intellij() {
     linuxify_check_os;
     linuxify_check_brew;
+    linuxify_set_prefix;
 
-    idea_path_location=/usr/local/bin/idea
+    idea_path_location=${BREW_PREFIX}/bin/idea
+    rm -f $idea_path_location
     cat > $idea_path_location <<-EOF
 #!/bin/sh
 
@@ -241,6 +231,35 @@ EOF
     echo "Added Idea to path"
 }
 
+linuxify_devops_repos() {
+## Install Git Repos
+    read -p "Do you want to install DevOps Repos (Y/N)? " -n 1 -r
+    if [[ $REPLY =~ [Yy]$ ]]; then
+      scripts/getrepos.sh
+    else
+        echo "Skipping DevOps Repos"
+    fi
+}
+
+aws_config() {
+## Install AWS Config
+  read -p "Configure AWS Profile (Y/N)? " -n 1 -r
+  if [[ $REPLY =~ [Yy]$ ]]; then
+    aws configure set default.region eu-west-2
+    aws configure set default.output json
+    CONFIG=~/.aws/config
+    PROFILES_TO_ADD=resources/aws-cli-config
+    # Check if file exists
+    if [ -f $CONFIG ]; then
+      cp $CONFIG ~/.aws/config.backup.$RANDOM
+    fi
+    cat "$PROFILES_TO_ADD" >> "$CONFIG"
+  else
+      echo "Skipping Config Setup"
+  fi
+
+}
+
 linuxify_help() {
   echo "usage: linuxify [-h] [command]";
   echo ""
@@ -249,6 +268,8 @@ linuxify_help() {
   echo "  uninstall  uninstall GNU/Linux utilities"
   echo "  info       show info on GNU/Linux utilities"
   echo "  intellij   setup mac for Intellij"
+  echo "  repos   	 clone devops repos"
+  echo "  aws   	   set up aws config"
   echo ""
   echo "optional arguments:"
   echo "  -h, --help  show this help message and exit"
@@ -260,6 +281,8 @@ linuxify_main() {
             "install") linuxify_install ;;
             "uninstall") linuxify_uninstall ;;
             "intellij") linuxify_intellij ;;
+            "repos") linuxify_devops_repos ;;
+            "aws") aws_config ;;
             "info") linuxify_info ;;
             "-h") linuxify_help ;;
             "--help") linuxify_help ;;
