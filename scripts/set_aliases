@@ -19,7 +19,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 cat ./shell_rc_alias_files/bash_aliases > ~/.bash_aliases
 
-if [ -f ~/.zshrc ]; then
-    cp ~/.zshrc ~/.zshrc.bak.${TIMESTAMP}
+if [ -f ~/.zprofile ]; then
+    cp ~/.zprofile ~/.zprofile.bak.${TIMESTAMP}
 fi
-cat ./shell_rc_alias_files/zshrc >> ~/.zshrc
+cat ./shell_rc_alias_files/zprofile >> ~/.zprofile

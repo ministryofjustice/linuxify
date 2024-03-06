@@ -1,0 +1,10 @@
+
+echo 'LOADED .zprofile'
+alias src='. ${HOME}/.zprofile'
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+## Ignore if already exists
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
