@@ -231,6 +231,16 @@ EOF
     echo "Added Idea to path"
 }
 
+linuxify_profile() {
+## Set up profiles and paths
+    read -p "Do you want to set up profiles and paths (Y/N)? " -n 1 -r
+    if [[ $REPLY =~ [Yy]$ ]]; then
+      scripts/set_aliases
+    else
+        echo "Skipping"
+    fi
+}
+
 linuxify_devops_repos() {
 ## Install Git Repos
     read -p "Do you want to install DevOps Repos (Y/N)? " -n 1 -r
@@ -243,21 +253,40 @@ linuxify_devops_repos() {
 
 aws_config() {
 ## Install AWS Config
-  read -p "Configure AWS Profile (Y/N)? " -n 1 -r
+  read -p "$(echo -e '\nConfigure AWS Profile (Y/N)?\n\b') " -n 1 -r
+
+
   if [[ $REPLY =~ [Yy]$ ]]; then
-    aws configure set default.region eu-west-2
-    aws configure set default.output json
+
     CONFIG=~/.aws/config
     PROFILES_TO_ADD=resources/aws-cli-config
-    # Check if file exists
-    if [ -f $CONFIG ]; then
-      cp $CONFIG ~/.aws/config.backup.$RANDOM
-    fi
-    cat "$PROFILES_TO_ADD" >> "$CONFIG"
-  else
-      echo "Skipping Config Setup"
-  fi
+    AWS_VAULT_PATH="$(which aws-vault 2>/dev/null || true)"
+    echo -e "\n$?"
+    echo -e "\n${AWS_VAULT_PATH}"
 
+    if [ $? -ne 0 ]; then
+      printf "\n aws-vault has not been installed. Use brew to install aws-vault (& awscli) before proceeding again.\n"
+      exit 1
+    fi
+
+    if [ -f $CONFIG ]; then
+      echo -e "\n\n Backing up ~/.aws/config if any existing config is required for re-inclusion \n"
+      mv ${CONFIG} ~/.aws/config.backup.${RANDOM}
+    fi
+
+    aws configure set default.region eu-west-2
+    aws configure set default.output json
+    sed "s+AWS_VAULT_PATH+${AWS_VAULT_PATH}+g" ${PROFILES_TO_ADD} >> ${CONFIG}
+
+    printf "\nAWS CONFIG now ready, result of 'aws configure list-profiles' is:\n\n"
+    aws configure list-profiles
+    printf "\n\n Test access with the following command (which will be on your clipboard):\n\n"
+    printf " aws sts get-caller-identity --profile mojo-shared-services-cli\n\n"
+    echo "aws sts get-caller-identity --profile mojo-shared-services-cli" | pbcopy
+
+  else
+      echo -e "\nSkipping Config Setup\n"
+  fi
 }
 
 linuxify_help() {
@@ -269,6 +298,7 @@ linuxify_help() {
   echo "  info       show info on GNU/Linux utilities"
   echo "  intellij   setup mac for Intellij"
   echo "  repos   	 clone devops repos"
+  echo "  profile    set up paths and aliases"
   echo "  aws   	   set up aws config"
   echo ""
   echo "optional arguments:"
@@ -281,6 +311,7 @@ linuxify_main() {
             "install") linuxify_install ;;
             "uninstall") linuxify_uninstall ;;
             "intellij") linuxify_intellij ;;
+            "profile") linuxify_profile ;;
             "repos") linuxify_devops_repos ;;
             "aws") aws_config ;;
             "info") linuxify_info ;;
