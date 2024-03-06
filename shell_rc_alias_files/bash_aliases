@@ -71,3 +71,60 @@ gitweb() {
 }
 
 alias tfenvuse='tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin'
+
+## AWS related
+## NOTE it2profile is an iTerm2 shell integration
+## see https://iterm2.com/documentation-shell-integration.html
+## also to switch to the named iTerm2 profile (Production) the profile needs creating
+## and a helpful color scheme applied (Red Sands).
+## Under Preferences > Advanced > Terminal
+## Set "Prevent control sequences form changing current profile" to "no"
+## For some reasone the profile name in the tab isn't set on the first call
+export AWS_PROFILE=mojo-shared-services-cli
+export AWS_VAULT_PROFILE=mojo-shared-services-cli
+
+alias cli='echo "AWS_PROFILE -- ${AWS_PROFILE}"'
+alias sharedcli="export AWS_PROFILE=mojo-shared-services-cli && cli && it2profile -s Default && it2profile -s Default"
+alias prodcli="export AWS_PROFILE=mojo-production-cli && cli && it2profile -s Production && it2profile -s Production"
+alias preprodcli="export AWS_PROFILE=mojo-pre-production-cli && cli && it2profile -s Pre-Production && it2profile -s Pre-Production"
+alias devcli="export AWS_PROFILE=mojo-development-cli && cli && it2profile -s Development && it2profile -s Development"
+alias clishare=sharedcli
+alias cliprod=prodcli
+alias clipre=preprodcli
+alias clidev=devcli
+
+alias pkiprodcli="export AWS_PROFILE=mojo-pki-production-cli && cli && it2profile -s Production && it2profile -s Production"
+alias clipki=pkiprodcli
+
+function aws_account_ids() {
+
+cat <<EOF
+
+683290208331 = shared-services
+068084030754 = development
+473630360727 = pre-production
+037161842252 = production
+
+EOF
+}
+
+alias awsid="aws sts get-caller-identity"
+alias awsauth="/usr/local/bin/aws-vault exec mojo-shared-services --json"
+
+alias cdmoj="${HOME}/gitrepos/moj/all_repos"
+alias cdproj="${HOME}/gitrepos/moj/Our_Products"
+alias cdNACS="${HOME}/gitrepos/moj/Our_Products/NACS"
+alias cdDHCP="${HOME}/gitrepos/moj/Our_Products/DHCP"
+alias cdDNS="${HOME}/gitrepos/moj/Our_Products/DNS"
+alias cdshared="${HOME}/gitrepos/moj/all_repos/staff-device-shared-services-infrastructure"
+
+export TF_PLUGIN_CACHE_DIR=~/.terraform/plugin-cache
+
+alias ntab='open -a iTerm .' # open new iTerm tab in current directory
+alias pwdc='pwd && pwd | pbcopy'
+alias cdc='cd $(pbpaste)'
+
+alias awsd='docker run --rm -ti -v ~/.aws:/root/.aws -v $(pwd):/aws --env-file <(aws-vault exec $AWS_PROFILE -- env | grep ^AWS_) amazon/aws-cli'
+
+alias toold='docker run --rm -ti -v $(pwd):/data --env-file <(aws-vault exec $AWS_PROFILE -- env | grep ^AWS_) ministryofjustice/nvvs/terraforms:latest'
+alias tooldgh='docker run --rm -ti -v $(pwd):/data --env-file <(aws-vault exec $AWS_PROFILE -- env | grep ^AWS_) ghcr.io/ministryofjustice/nvvs/terraforms:latest'
