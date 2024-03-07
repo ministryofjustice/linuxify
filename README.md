@@ -62,3 +62,5 @@ After run this from the root of the project to link the `.bash_aliases` again af
 6. Click ... (Top right)
 7. Import bookmarks
 8. [/github_bookmarks2.html](/github_bookmarks2.html)
+9. TEST COMMIT
+
