@@ -9,18 +9,20 @@ mkdir -p all_repos
 cd all_repos || exit 1
 
 repositories=(
-  "nvvs-devops git@github.com:ministryofjustice/nvvs-devops"
-  "nvvs-devops-github-actions git@github.com:ministryofjustice/nvvs-devops-github-actions"
+  "PaloAlto-pipelines git@github.com:ministryofjustice/PaloAlto-pipelines"
   "cloud-operations-slack-bot git@github.com:ministryofjustice/cloud-operations-slack-bot"
-  "mojo-aws-github-oidc-provider git@github.com:ministryofjustice/mojo-aws-github-oidc-provider"
   "deployment-tgw git@github.com:ministryofjustice/deployment-tgw"
+  "juniper-mist-integration git@github.com:ministryofjustice/juniper-mist-integration"
+  "mojo-aws-github-oidc-provider git@github.com:ministryofjustice/mojo-aws-github-oidc-provider"
   "network-access-control-admin git@github.com:ministryofjustice/network-access-control-admin"
   "network-access-control-disaster-recovery git@github.com:ministryofjustice/network-access-control-disaster-recovery"
   "network-access-control-infrastructure git@github.com:ministryofjustice/network-access-control-infrastructure"
   "network-access-control-integration-tests git@github.com:ministryofjustice/network-access-control-integration-tests"
   "network-access-control-server git@github.com:ministryofjustice/network-access-control-server"
+  "nvvs-containers git@github.com:ministryofjustice/nvvs-containers"
+  "nvvs-devops git@github.com:ministryofjustice/nvvs-devops"
+  "nvvs-devops-github-actions git@github.com:ministryofjustice/nvvs-devops-github-actions"
   "nvvs-devops-monitor git@github.com:ministryofjustice/nvvs-devops-monitor"
-  "PaloAlto-pipelines git@github.com:ministryofjustice/PaloAlto-pipelines"
   "staff-device-dhcp-server git@github.com:ministryofjustice/staff-device-dhcp-server"
   "staff-device-dns-dhcp-admin git@github.com:ministryofjustice/staff-device-dns-dhcp-admin"
   "staff-device-dns-dhcp-disaster-recovery git@github.com:ministryofjustice/staff-device-dns-dhcp-disaster-recovery"
@@ -46,8 +48,6 @@ repositories=(
   "tech-docs-monitor git@github.com:ministryofjustice/tech-docs-monitor"
   "terraform-panorama-config git@github.com:ministryofjustice/terraform-panorama-config"
   "transit-gateways git@github.com:ministryofjustice/transit-gateways"
-  "nvvs-containers git@github.com:ministryofjustice/nvvs-containers"
-  "juniper-mist-integration git@github.com:ministryofjustice/juniper-mist-integration"
 )
 
 clone_repo() {
