@@ -1,0 +1,27 @@
+echo 'LOADED .zprofile'
+
+## brew intel
+if [ -d /usr/local/bin/brew ]; then
+	eval "$(/usr/local/bin/brew shellenv)"
+fi
+## brew apple silicon
+if [ -d /opt/homebrew/bin/brew ]; then
+	eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+
+alias src=function_src
+function_src() {
+. ${HOME}/.zprofile
+
+if [ -f ~/.zshrc ]; then
+	. ~/.zshrc
+fi
+}
+
+# Ignore if already exists
+if [ -f ~/.bash_aliases ]; then
+. ~/.bash_aliases
+fi
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

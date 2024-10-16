@@ -1,5 +1,10 @@
 echo 'LOADED .bash_aliases'
 
+## Load private aliases (aliases which don't make sense to share)
+if [ -f ~/.bash_aliases_private ]; then
+. ~/.bash_aliases_private
+fi
+
 ## Ignore if already exists
 if [ -f ~/.bash_tokens ]; then
 . ~/.bash_tokens
@@ -69,5 +74,20 @@ gitweb() {
   echo  "${remote_origin_url}"
   echo  "${remote_origin_url}" | pbcopy
 }
+
+function git_prune_branches() {
+        echo "switching to master or main branch.."
+        git branch | grep 'main\|master' | xargs -n 1 git checkout
+        echo "fetching with -p option...";
+        git fetch -p;
+        echo "running pruning of local branches"
+        git branch -vv | grep ': gone]'|  grep -v "\*" | awk '{ print $1; }' | xargs -r git branch -d ;
+}
+
+alias gpb='git_prune_branches'
+
+alias ntab='open -a iTerm .' # open new iTerm tab in current directory
+alias pwdc='pwd && pwd | pbcopy'
+alias cdc='cd $(pbpaste)'
 
 alias tfenvuse='tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin'
