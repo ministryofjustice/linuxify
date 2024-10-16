@@ -29,7 +29,7 @@ if [ -f ~/.zshrc ]; then
     cp ~/.zshrc ~/.zshrc.bak.${TIMESTAMP}
 fi
 
-if [ -d .oh-my-zsh ]; then
+if [ -d ~/.oh-my-zsh ]; then
   # overwrite with oh-my-zsh plugins enabled
   cat ./shell_rc_alias_files/zshrc_ohmyzsh > ~/.zshrc
 fi
