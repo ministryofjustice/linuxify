@@ -13,11 +13,11 @@ fi
 alias src=function_src
 function_src() {
 . ${HOME}/.zprofile
-}
 
 if [ -f ~/.zshrc ]; then
 	. ~/.zshrc
 fi
+}
 
 # Ignore if already exists
 if [ -f ~/.bash_aliases ]; then
