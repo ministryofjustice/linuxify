@@ -39,6 +39,40 @@ sso_role_name = AdministratorAccess
 region = eu-west-2
 output = json
 
+[profile mojo-public-key-infra]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 853737712964
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile moj-network-operations-centre-preproduction]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 724777394818
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile moj-network-operations-centre-production]
+sso_start_url = https://moj.awsapps.com/start
+sso_region = eu-west-2
+sso_account_id = 208632142291
+sso_role_name = AdministratorAccess
+region = eu-west-2
+output = json
+
+[profile moj-network-operations-centre-preproduction-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec moj-network-operations-centre-preproduction --json
+
+[profile moj-network-operations-centre-production-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec moj-network-operations-centre-production --json
+
 [profile mojo-shared-services-cli]
 region = eu-west-2
 output = json
@@ -58,3 +92,9 @@ credential_process = /usr/local/bin/aws-vault exec mojo-pre-production --json
 region = eu-west-2
 output = json
 credential_process = /usr/local/bin/aws-vault exec mojo-production --json
+
+[profile mojo-public-key-infra-cli]
+region = eu-west-2
+output = json
+credential_process = /usr/local/bin/aws-vault exec mojo-public-key-infra  --json
+
