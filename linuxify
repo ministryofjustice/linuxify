@@ -152,6 +152,14 @@ linuxify_install() {
         echo "Skipping DevOps Repos"
     fi
 
+    ## Install dnuke function
+    read -p "Do you want to install dnuke function (Y/N)? " -n 1 -r
+    if [[ $REPLY =~ [Yy]$ ]]; then
+      scripts/dnuke.sh
+    else
+        echo "Skipping dnuke install"
+    fi
+
     ## Install AWS Config
     read -p "Configure AWS Profile (Y/N)? " -n 1 -r
     if [[ $REPLY =~ [Yy]$ ]]; then
