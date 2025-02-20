@@ -9,9 +9,7 @@ mkdir -p all_repos
 cd all_repos || exit 1
 
 repositories=(
-  "PaloAlto-pipelines git@github.com:ministryofjustice/PaloAlto-pipelines"
   "cloud-operations-slack-bot git@github.com:ministryofjustice/cloud-operations-slack-bot"
-  "deployment-tgw git@github.com:ministryofjustice/deployment-tgw"
   "diso-devops-ami-builder git@github.com:ministryofjustice/diso-devops-ami-builder"
   "diso-devops-module-ssm-bastion git@github.com:ministryofjustice/diso-devops-module-ssm-bastion"
   "juniper-mist-integration git@github.com:ministryofjustice/juniper-mist-integration"
@@ -33,13 +31,10 @@ repositories=(
   "staff-device-dns-server git@github.com:ministryofjustice/staff-device-dns-server"
   "staff-device-logging-dns-dhcp-integration-tests git@github.com:ministryofjustice/staff-device-logging-dns-dhcp-integration-tests"
   "staff-device-logging-infrastructure git@github.com:ministryofjustice/staff-device-logging-infrastructure"
-  "staff-device-logging-syslog-to-cloudwatch git@github.com:ministryofjustice/staff-device-logging-syslog-to-cloudwatch"
   "staff-device-private-dns-zone git@github.com:ministryofjustice/staff-device-private-dns-zone"
   "staff-device-shared-services-infrastructure git@github.com:ministryofjustice/staff-device-shared-services-infrastructure"
   "staff-infrastructure-admin-sso git@github.com:ministryofjustice/staff-infrastructure-admin-sso"
   "staff-infrastructure-certificate-services git@github.com:ministryofjustice/staff-infrastructure-certificate-services"
-  "staff-infrastructure-metric-aggregation-server git@github.com:ministryofjustice/staff-infrastructure-metric-aggregation-server"
-  "staff-infrastructure-metric-aggregator-cloud git@github.com:ministryofjustice/staff-infrastructure-metric-aggregator-cloud"
   "staff-infrastructure-monitoring-app-reachability git@github.com:ministryofjustice/staff-infrastructure-monitoring-app-reachability"
   "staff-infrastructure-monitoring-blackbox-exporter git@github.com:ministryofjustice/staff-infrastructure-monitoring-blackbox-exporter"
   "staff-infrastructure-monitoring-dns-reachability git@github.com:ministryofjustice/staff-infrastructure-monitoring-dns-reachability"
@@ -49,7 +44,6 @@ repositories=(
   "staff-infrastructure-smtp-relay-server git@github.com:ministryofjustice/staff-infrastructure-smtp-relay-server"
   "staff-technology-services-github-teams git@github.com:ministryofjustice/staff-technology-services-github-teams"
   "tech-docs-monitor git@github.com:ministryofjustice/tech-docs-monitor"
-  "terraform-panorama-config git@github.com:ministryofjustice/terraform-panorama-config"
   "transit-gateways git@github.com:ministryofjustice/transit-gateways"
 )
 

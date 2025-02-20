@@ -91,3 +91,5 @@ alias pwdc='pwd && pwd | pbcopy'
 alias cdc='cd $(pbpaste)'
 
 alias tfenvuse='tfenv use $(cat versions.tf 2> /dev/null | grep required_version | cut -d "\"" -f 2 | cut -d " " -f 2) && tfenv pin'
+
+alias dnuke='${HOME}/script_utils/dnuke.sh'
